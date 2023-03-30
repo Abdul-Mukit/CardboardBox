@@ -21,7 +21,7 @@ def draw_contour_rect(image, cnt):
 
 frame_width, frame_height = 480, 270
 cap = cv2.VideoCapture('box_on_track.mp4')
-out = cv2.VideoWriter('output.avi', cv2.VideoWriter_fourcc('M','J','P','G'), 10, (frame_width, frame_height))
+out = cv2.VideoWriter('output.avi', cv2.VideoWriter_fourcc('M','J','P','G'), 10, (frame_width, 2*frame_height))
 
 while cap.isOpened():
     ret, frame = cap.read()
@@ -46,7 +46,12 @@ while cap.isOpened():
     cv2.imshow("Masked frame", masked_img)
     cv2.imshow("Threshold", img_th)
 
-    # out.write(frame)
+    # Video Saving
+    cv2.putText(frame, 'Detection', (10,25), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,255,0), 2)
+    cv2.putText(masked_img, 'Segmentation', (10,25), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,255,0), 2)
+    img_cat = np.concatenate((frame, masked_img), axis=0)
+    cv2.imshow("Cat", img_cat)
+    out.write(img_cat)
 
     # Press Q on keyboard to  exit
     if cv2.waitKey(25) & 0xFF == ord('q'):
