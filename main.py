@@ -12,6 +12,7 @@ def get_max_contour(image):
     mask = cv2.drawContours(black, [c], 0, 255, -1)
     return mask, [c]
 
+
 def draw_contour_rect(image, cnt):
     rect = cv2.minAreaRect(cnt)
     box = cv2.boxPoints(rect)
@@ -19,7 +20,7 @@ def draw_contour_rect(image, cnt):
     cv2.drawContours(image, [box], 0, (0, 255, 0), 2)
 
 
-frame_width, frame_height = 480, 270
+frame_width, frame_height = 960, 540
 cap = cv2.VideoCapture('box_on_track.mp4')
 out = cv2.VideoWriter('output.avi', cv2.VideoWriter_fourcc('M','J','P','G'), 10, (frame_width, 2*frame_height))
 
